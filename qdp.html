@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Statistics</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Quartile, Decile and Percentile">
+<meta name="author" content="Denniel Luis Saway Sadian">
+<meta name="date" content="August 1, 2018">
+<link rel="icon" href="images/icon.png">
+<link rel="stylesheet" href="styles/w3.css">
+<script src="scripts/angular.min.js"></script>
+<script src="scripts/main.qdp.js"></script>
+<style>
+header, footer {
+	background: url("images/cubism-green.png") no-repeat fixed;
+	padding: 25px!important;
+	background-size: cover;
+}
+input {
+	transition: 0.5s;
+}
+h4 {
+	margin: 0;
+}
+#gdt {
+	overflow: auto;
+}
+</style>
+</head>
+<body class="w3-light-gray">
+
+<header class="w3-container w3-black w3-center w3-margin-bottom
+               w3-border-bottom w3-bottombar w3-border-gray">
+	<h1 style="letter-spacing:4px">Quartile, Decile and Percentile</h1>
+	<p class="w3-opacity">Created by
+	<a href="about.html" class="w3-hover-blue w3-large">@dennielsadian</a><p>
+</header>
+
+<div class="w3-container" ng-app="qdp" ng-controller="qdpCtrl">
+	<div class="w3-content w3-white">
+		<div class="w3-padding w3-border-left w3-leftbar
+		            w3-border-pink w3-topbar w3-rightbar">
+			<h4>Enter Data:</h4>
+			<input class="w3-input w3-hover-light-gray"
+			       type="text" ng-model="rawData"
+				   ng-change="onInputRawData()"/>
+		</div>
+	</div>
+	<div class="w3-container w3-margin-bottom w3-pink w3-content">
+		<h3>Sorted data:</h3>
+		<p>{{ sortedData.join(", ") }}</p>
+		<p>n = {{ n }}</p>
+		<p>Highest Value = {{ highestValue }}</p>
+		<p>Lowest Value = {{ lowestValue }}</p>
+		<p>Class Interval = {{ classInterval }}</p>
+	</div>
+	<div class="w3-content w3-white">
+		<div class="w3-padding w3-margin-top w3-border-left w3-leftbar
+		            w3-border-green w3-topbar w3-rightbar">
+			<h4>Enter Number of Classes:</h4>
+			<input class="w3-input w3-hover-light-gray" type="number"
+			       ng-model="numberOfClasses"
+				   ng-change="buildFrequencyTable();
+				              findQuartilesOfGroupedData();
+				              findPercentilesOfGroupedData();
+							  findDecilesOfGroupedData()"/>
+		</div>
+	</div>
+	<div id="gdt" class="w3-content w3-margin-bottom">
+		<table class="w3-table-all w3-border-bottom w3-bottombar w3-border-green">
+			<tr class="w3-green w3-border-green">
+				<th colspan="5" class="w3-center w3-large">Grouped Data Table<br/>
+				<div class="w3-small">
+					F <span class="w3-opacity">is Frequency,</span>
+					LB <span class="w3-opacity"> is Lower Boundary,</span>
+					UB <span class="w3-opacity">is Upper Boundary,</span>
+					CF <span class="w3-opacity">is Cumulative Frequency</span>
+				</div></th>
+			</tr>
+			<tr class="w3-pale-green">
+				<th class="w3-border-right w3-border-bottom w3-border-green w3-center">Data</th>
+				<th class="w3-border-right w3-border-bottom w3-border-green w3-center">F</th>
+				<th class="w3-border-right w3-border-bottom w3-border-green w3-center">LB</th>
+				<th class="w3-border-right w3-border-bottom w3-border-green w3-center">UP</th>
+				<th class="w3-center w3-border-green w3-border-bottom">CF</th>
+			</tr>
+			<tr ng-repeat="x in frequencyTable">
+				<td class="w3-border-right w3-border-green w3-center">
+					{{ x.data[0] }} <sup>to</sup> {{ x.data[1] }}</td>
+				<td class="w3-border-right w3-border-green w3-center">{{ x.frequency }}</td>
+				<td class="w3-border-right w3-border-green w3-center">{{ x.lb }}</td>
+				<td class="w3-border-right w3-border-green w3-center">{{ x.ub }}</td>
+				<td class="w3-center">{{ x.cf }}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="w3-container w3-margin-bottom w3-teal w3-content">
+		<h3>Quartiles of Ungrouped Data:</h3>
+		<p>Q<sub>1</sub> = {{ unQ1pos }}<sup>th</sup> term is {{ unQ1 }}</p>
+		<p>Q<sub>2</sub> = {{ unQ2pos }}<sup>th</sup> term is {{ unQ2 }}</p>
+		<p>Q<sub>3</sub> = {{ unQ3pos }}<sup>th</sup> term is {{ unQ3 }}</p>
+		<hr/>
+		<h3>Quartiles of Grouped Data:</h3>
+		<p>Q<sub>1</sub> = {{ q1Grouped }}</p>
+		<p>Q<sub>2</sub> = {{ q2Grouped }}</p>
+		<p>Q<sub>3</sub> = {{ q3Grouped }}</p>
+	</div>
+	<div class="w3-content w3-white">
+		<div class="w3-padding w3-margin-top w3-border-left w3-leftbar
+		            w3-border-blue w3-topbar w3-rightbar">
+			<h4>Enter Deciles:</h4>
+			<input class="w3-input w3-hover-light-gray"
+			       type="text" ng-model="rawDeciles"
+				   ng-change="findDecilesOfUngroupedData();
+				           findDecilesOfGroupedData()"/>
+		</div>
+	</div>
+	<div class="w3-container w3-margin-bottom w3-blue w3-content">
+		<h3>Deciles of Ungrouped Data:</h3>
+		<p ng-repeat="x in solvedUngroupedDeciles">
+			D<sub>{{ x.k }}</sub> = {{ x.answer }}</p>
+		<hr/>
+		<h3>Deciles of Grouped Data:</h3>
+		<p ng-repeat="x in solvedGroupedDeciles">
+			D<sub>{{ x.k }}</sub> = {{ x.answer }}</p>
+	</div>
+	<div class="w3-content w3-white">
+		<div class="w3-padding w3-margin-top w3-border-left w3-leftbar
+		            w3-border-purple w3-topbar w3-rightbar">
+			<h4>Enter Percentiles:</h4>
+			<input class="w3-input w3-hover-light-gray"
+			       type="text" ng-model="rawPercentiles"
+				   ng-change="findPercentilesOfUngroupedData();
+				              findPercentilesOfGroupedData()"/>
+		</div>
+	</div>
+	<div class="w3-container w3-margin-bottom w3-purple w3-content">
+		<h3>Percentiles of Ungrouped Data:</h3>
+		<p ng-repeat="x in solvedUngroupedPercentiles">
+			P<sub>{{ x.k }}</sub> = {{ x.term }}<sup>th</sup>
+			is {{ x.answer }}</p>
+		<hr/>
+		<h3>Percentiles of Grouped Data:</h3>
+		<p ng-repeat="x in solvedGroupedPercentiles">
+			P<sub>{{ x.k }}</sub> = {{ x.answer }}</p>
+	</div>
+</div>
+
+<footer class="w3-container w3-green w3-border-top w3-border-gray w3-topbar">
+	<div class="w3-content">
+		<h1>How to use</h1>
+		<hr/>
+		<p>The data, deciles and percentiles are separated by
+		comma (,) and space ( ), example: "12,(space)3,(space)2", so
+		this must be "12, 3, 2", just like that. If you see "NaN" anywhere,
+		it means something is wrong on what you are typing, NaN stands
+		for Not a Number. The Grouped Data Table will be created if
+		you input the data and number of class. The Quartiles, Deciles
+		and Percentiles of grouped data will be solved if the
+		Grouped Data Table is created.</p>
+	</div>
+	<p class="w3-small w3-opacity w3-center">August 1-2, 2018</p>
+</footer>
+
+</body>
+</html>
