@@ -7,26 +7,9 @@
 <meta name="description" content="Quartile, Decile and Percentile">
 <meta name="author" content="Denniel Luis Saway Sadian">
 <meta name="date" content="August 1, 2018">
-<link rel="icon" href="images/icon.png">
-<link rel="stylesheet" href="styles/w3.css">
-<script src="scripts/angular.min.js"></script>
-<script src="scripts/main.qdp.js"></script>
-<style>
-header, footer {
-	background: url("images/cubism-green.png") no-repeat fixed;
-	padding: 25px!important;
-	background-size: cover;
-}
-input {
-	transition: 0.5s;
-}
-h4 {
-	margin: 0;
-}
-#gdt {
-	overflow: auto;
-}
-</style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
 </head>
 <body class="w3-light-gray">
 
@@ -163,5 +146,207 @@ h4 {
 	<p class="w3-small w3-opacity w3-center">August 1-2, 2018</p>
 </footer>
 
+<script>
+// August 1, 2018
+// Written by Denniel Luis Saway Sadian
+
+var app = angular.module('qdp', []);
+app.controller("qdpCtrl", function($scope){
+	$scope.onInputRawData = function() {
+		var temp = $scope.intArrayFromThis($scope.rawData);
+		$scope.sortedData = temp.sort(function(a, b){return a - b});
+		$scope.n = $scope.sortedData.length;
+		$scope.findQuartilesOfUngroupedData();
+		$scope.highestValue = $scope.sortedData[$scope.n-1];
+		$scope.lowestValue = $scope.sortedData[0];
+		if ($scope.numberOfClasses)
+			$scope.buildFrequencyTable();
+	}
+	$scope.findQuartilesOfUngroupedData = function() {
+		$scope.unQ1pos = 1 / 4 * ($scope.n + 1);
+		$scope.unQ2pos = 1 / 2 * ($scope.n + 1);
+		$scope.unQ3pos = 3 / 4 * ($scope.n + 1);
+		if ($scope.isFloat($scope.unQ1pos)) {
+			var floor = Math.floor($scope.unQ1pos);
+			$scope.unQ1 = ($scope.sortedData[floor-1] +
+			               $scope.sortedData[floor]) / 2;
+		} else {
+			var floor = Math.floor($scope.unQ1pos);
+			$scope.unQ1 = $scope.sortedData[floor-1];
+		}
+		if ($scope.isFloat($scope.unQ2pos)) {
+			var floor = Math.floor($scope.unQ2pos);
+			$scope.unQ2 = ($scope.sortedData[floor-1] +
+			               $scope.sortedData[floor]) / 2;
+		} else {
+			var floor = Math.floor($scope.unQ2pos);
+			$scope.unQ2 = $scope.sortedData[floor-1];
+		}
+		if ($scope.isFloat($scope.unQ3pos)) {
+			var floor = Math.floor($scope.unQ3pos);
+			$scope.unQ3 = ($scope.sortedData[floor-1] +
+			               $scope.sortedData[floor]) / 2;
+		} else {
+			var floor = Math.floor($scope.unQ3pos);
+			$scope.unQ3 = $scope.sortedData[floor-1];
+		}
+	}
+	$scope.findDecilesOfUngroupedData = function() {
+		var decilesToFind = $scope.intArrayFromThis(
+			$scope.rawDeciles).sort(
+				function(a, b){return a - b});
+		$scope.solvedUngroupedDeciles = [];
+		for (x in decilesToFind) {
+			$scope.solvedUngroupedDeciles[x] = {
+				k: decilesToFind[x],
+				answer: Math.round(
+					decilesToFind[x] / 10 * ($scope.n + 1))
+			}
+		}
+	}
+	$scope.findPercentilesOfUngroupedData = function() {
+		var percentilesToFind = $scope.intArrayFromThis(
+			$scope.rawPercentiles).sort(
+				function(a, b){return a - b});
+		$scope.solvedUngroupedPercentiles = [];
+		for (x in percentilesToFind) {
+			var t = Math.round(percentilesToFind[x] /
+				               100 * ($scope.n + 1));
+			$scope.solvedUngroupedPercentiles[x] = {
+				k: percentilesToFind[x],
+				term: t,
+				answer: $scope.sortedData[t]
+			}
+		}
+	}
+	$scope.buildFrequencyTable = function() {
+		if ($scope.highestValue && $scope.lowestValue) {
+			$scope.classInterval = Math.round(
+				($scope.highestValue - $scope.lowestValue) /
+					$scope.numberOfClasses);
+			var modifiedCI = $scope.classInterval-1;
+			$scope.frequencyTable = [
+				{data: [$scope.lowestValue,
+				        $scope.lowestValue + modifiedCI]}
+			];
+			for (var i = 1; i < $scope.numberOfClasses; i++) {
+				var h = $scope.frequencyTable[i-1].data[1]+1;
+				$scope.frequencyTable[i] = {
+					data: [h, h+modifiedCI]
+				};
+			}
+			for (x in $scope.frequencyTable) {
+				var row = $scope.frequencyTable[x];
+				var frequency = 0;
+				for (d in $scope.sortedData) {
+					var datum = $scope.sortedData[d];
+					if (datum >= row.data[0] &&
+					    datum <= row.data[1]) {
+					    frequency++;
+					}
+				}
+				row.lb = row.data[0] - 0.5;
+				row.ub = row.data[1] + 0.5;
+				row.frequency = frequency;
+				if (x == 0) {
+					row.cf = row.frequency;
+				} else {
+					row.cf = row.frequency +
+						$scope.frequencyTable[x-1].cf;
+				}
+			}
+		}
+	}
+	$scope.findQuartilesOfGroupedData = function() {
+		var q1term = (1 * $scope.n) / 4;
+		for (x in $scope.frequencyTable) {
+			if (q1term <= $scope.frequencyTable[x].cf) {
+				var row = $scope.frequencyTable[x];
+				var cf = $scope.frequencyTable[x-1].cf;
+				$scope.q1Grouped = row.lb + ((q1term-cf) /
+					row.frequency) * $scope.classInterval;
+				break;
+			}
+		}
+		var q2term = (2 * $scope.n) / 4;
+		for (x in $scope.frequencyTable) {
+			if (q2term <= $scope.frequencyTable[x].cf) {
+				var row = $scope.frequencyTable[x];
+				var cf = $scope.frequencyTable[x-1].cf;
+				$scope.q2Grouped = row.lb + ((q2term-cf) /
+					row.frequency) * $scope.classInterval;
+				break;
+			}
+		}
+		var q3term = (3 * $scope.n) / 4;
+		for (x in $scope.frequencyTable) {
+			if (q3term <= $scope.frequencyTable[x].cf) {
+				var row = $scope.frequencyTable[x];
+				var cf = $scope.frequencyTable[x-1].cf;
+				$scope.q3Grouped = row.lb + ((q3term-cf) /
+					row.frequency) * $scope.classInterval;
+				break;
+			}
+		}
+	}
+	$scope.findDecilesOfGroupedData = function() {
+		if ($scope.rawDeciles) {
+			var decilesToFind = $scope.intArrayFromThis(
+				$scope.rawDeciles).sort(
+					function(a, b){return b - a});
+			$scope.solvedGroupedDeciles = [];
+			for (i in decilesToFind) {
+				var term = (decilesToFind[i] * $scope.n) / 10;
+				for (x in $scope.frequencyTable) {
+					if (term <= $scope.frequencyTable[x].cf) {
+						var row = $scope.frequencyTable[x];
+						var cf = $scope.frequencyTable[x-1].cf;
+						$scope.solvedGroupedDeciles[i] = {
+							k: decilesToFind[i],
+							answer: row.lb + ((term-cf) /
+								row.frequency) * $scope.classInterval
+						}
+					break;
+					}
+				}
+			}
+		}
+	}
+	$scope.findPercentilesOfGroupedData = function() {
+		if ($scope.rawPercentiles) {
+			var percentilesToFind = $scope.intArrayFromThis(
+				$scope.rawPercentiles).sort(
+					function(a, b){return b - a});
+			$scope.solvedGroupedPercentiles = [];
+			for (i in percentilesToFind) {
+				var term = (percentilesToFind[i] * $scope.n) / 100;
+				for (x in $scope.frequencyTable) {
+					if (term <= $scope.frequencyTable[x].cf) {
+						var row = $scope.frequencyTable[x];
+						var cf = $scope.frequencyTable[x-1].cf;
+						$scope.solvedGroupedPercentiles[i] = {
+							k: percentilesToFind[i],
+							answer: row.lb + ((term-cf) / row.frequency) * $scope.classInterval
+						}
+					break;
+					}
+				}
+			}
+		}
+	}
+	$scope.isFloat = function(num) {
+		var pattern = /\./;
+		return pattern.test(num.toString());
+	}
+	$scope.intArrayFromThis = function(string) {
+		var temp = string.split(", ");
+		for (x in temp) {
+			temp[x] = Number(temp[x]);
+		}
+		return temp;
+	}
+});
+</script>
+	
 </body>
 </html>
