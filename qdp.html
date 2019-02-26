@@ -14,10 +14,9 @@
 <body class="w3-light-gray">
 
 <header class="w3-container w3-black w3-center w3-margin-bottom
-               w3-border-bottom w3-bottombar w3-border-gray">
+               w3-border-bottom w3-bottombar w3-border-gray w3-padding-64">
 	<h1 style="letter-spacing:4px">Quartile, Decile and Percentile</h1>
-	<p class="w3-opacity">Created by
-	<a href="index.html" class="w3-hover-blue w3-large">@dennielsadian</a><p>
+	<p class="w3-opacity w3-large">Created by ESTI ICT-XI 2018-2019</p>
 </header>
 
 <div class="w3-container" ng-app="qdp" ng-controller="qdpCtrl">
@@ -32,11 +31,12 @@
 	</div>
 	<div class="w3-container w3-margin-bottom w3-pink w3-content">
 		<h3>Sorted data:</h3>
-		<p>{{ sortedData.join(", ") }}</p>
-		<p>n = {{ n }}</p>
-		<p>Highest Value = {{ highestValue }}</p>
-		<p>Lowest Value = {{ lowestValue }}</p>
-		<p>Class Interval = {{ classInterval }}</p>
+		<p class="w3-large">{{ sortedData.join(", ") }}</p>
+		<p>Total frequency (n) = {{ n }}</p>
+		<p>Highest value = {{ highestValue }}</p>
+		<p>Lowest value = {{ lowestValue }}</p>
+		<p>Class interval (i) = {{ classInterval }}</p>
+		<p>Assumed mean (X<sub>0</sub>) = {{ xo }}</p>
 	</div>
 	<div class="w3-content w3-white">
 		<div class="w3-padding w3-margin-top w3-border-left w3-leftbar
@@ -47,36 +47,50 @@
 				   ng-change="buildFrequencyTable();
 				              findQuartilesOfGroupedData();
 				              findPercentilesOfGroupedData();
-							  findDecilesOfGroupedData()"/>
+							  findDecilesOfGroupedData();"/>
 		</div>
 	</div>
 	<div id="gdt" class="w3-content w3-margin-bottom">
-		<table class="w3-table-all w3-border-bottom w3-bottombar w3-border-green">
-			<tr class="w3-green w3-border-green">
-				<th colspan="5" class="w3-center w3-large">Grouped Data Table<br/>
-				<div class="w3-small">
-					F <span class="w3-opacity">is Frequency,</span>
-					LB <span class="w3-opacity"> is Lower Boundary,</span>
-					UB <span class="w3-opacity">is Upper Boundary,</span>
-					CF <span class="w3-opacity">is Cumulative Frequency</span>
-				</div></th>
-			</tr>
-			<tr class="w3-pale-green">
-				<th class="w3-border-right w3-border-bottom w3-border-green w3-center">Data</th>
-				<th class="w3-border-right w3-border-bottom w3-border-green w3-center">F</th>
-				<th class="w3-border-right w3-border-bottom w3-border-green w3-center">LB</th>
-				<th class="w3-border-right w3-border-bottom w3-border-green w3-center">UP</th>
-				<th class="w3-center w3-border-green w3-border-bottom">CF</th>
-			</tr>
-			<tr ng-repeat="x in frequencyTable">
-				<td class="w3-border-right w3-border-green w3-center">
-					{{ x.data[0] }} <sup>to</sup> {{ x.data[1] }}</td>
-				<td class="w3-border-right w3-border-green w3-center">{{ x.frequency }}</td>
-				<td class="w3-border-right w3-border-green w3-center">{{ x.lb }}</td>
-				<td class="w3-border-right w3-border-green w3-center">{{ x.ub }}</td>
-				<td class="w3-center">{{ x.cf }}</td>
-			</tr>
-		</table>
+		<div class="w3-green w3-container w3-center">
+			<h3>Grouped Data Table</h3>
+		</div>
+		<div id="ftable">
+			<table class="w3-table-all w3-border-bottom w3-bottombar w3-border-green">
+				<tr class="w3-pale-green">
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center">Data</th>
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center">Frequency</th>
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center">Class Mark</th>
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center">Class Boundary</th>
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center">Relative Frequency</th>
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center"><span class="w3-small">Less than</span> CF</th>
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center">Greater than</span> CF</th>
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center">X<sub>m</sub></th>
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center">fX<sub>m</sub></th>
+					<th class="w3-border-right w3-border-bottom w3-border-green w3-center">X<sub>C</sub></th>
+					<th class="w3-center w3-border-green w3-border-bottom"><span class="w3-small">fX<sub>C</sub></th>
+				</tr>
+				<tr ng-repeat="x in frequencyTable">
+					<td class="w3-border-right w3-border-green w3-center">
+						{{ x.data[0] }} <span class="w3-small w3-opacity">-</span> {{ x.data[1] }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.frequency }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.classMark }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.lb }}
+							<span class="w3-small w3-opacity">-</span> {{ x.ub }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.relativeFrequency }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.cf }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.gcf }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.classMark }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.fxm }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.xc }}</td>
+					<td class="w3-border-right w3-border-green w3-center">{{ x.fxc }}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="w3-container w3-margin-bottom w3-orange w3-content">
+		<h3>Mean of Ungrouped Data is {{ ungroupedMean }}</h3>
+		<h3>Mean of Grouped Data is {{ groupedMean }}</h3>
+		<h3>Median of Ungrouped Data is {{ ungroupedMedian }}</h3>
 	</div>
 	<div class="w3-container w3-margin-bottom w3-teal w3-content">
 		<h3>Quartiles of Ungrouped Data:</h3>
@@ -130,224 +144,330 @@
 	</div>
 </div>
 
-<footer class="w3-container w3-green w3-border-top w3-border-gray w3-topbar">
+<footer class="w3-container w3-black w3-border-top w3-border-gray w3-topbar w3-padding-64">
 	<div class="w3-content">
 		<h1>How to use</h1>
-		<hr/>
 		<p>The data, deciles and percentiles are separated by
-		comma (,) and space ( ), example: "12,(space)3,(space)2", so
-		this must be "12, 3, 2", just like that. If you see "NaN" anywhere,
-		it means something is wrong on what you are typing, NaN stands
-		for Not a Number. The Grouped Data Table will be created if
+		commas (<strong class="w3-text-black">,</strong>). <strong class="w3-text-black">example: "12,3,2"</strong>, so
+		this must be "<strong class="w3-text-black">12,3,2</strong>", just like that. If you see <strong class="w3-text-black">"NaN"</strong> anywhere,
+		it means something is wrong on what you are typing, <strong class="w3-text-black">NaN stands
+		for Not a Number</strong>. The Grouped Data Table will be created if
 		you input the data and number of class. The Quartiles, Deciles
 		and Percentiles of grouped data will be solved if the
-		Grouped Data Table is created.</p>
+		Grouped Data Table has been created.</p>
+		<hr/>
+		<h1>About</h1>
+		<p>Our application provides the fastest way of solving grouped and ungrouped data. We
+		were inspired to develop this application because we found it hard to manually solve
+		and construct whatever needed on our papers. We also experienced errors even if we do
+		it tediously. We also plan to host this JS application on the Internet so that we won't be the only one who
+		will benefit from it.
+		</p>
+		<hr/>
+		<h1>From what was it developed?</h1>
+		<p><span class="w3-large">Angular.JS</span> - a JavaScript framework written by Google for
+		rapid development of SPAs (Single Page Applications).</p>
+		<p><span class="w3-large">W3.CSS</span> - a styling framework created by W3Schools.</p>
 	</div>
-	<p class="w3-small w3-opacity w3-center">August 1-2, 2018</p>
 </footer>
 
 <script>
-// August 1, 2018
-// Written by Denniel Luis Saway Sadian
+/*
+                     ***********************
+                    * SADIAN LOVES ICT FAM  *
+                     ***********************
+
+  @@@@@@      @@@@@     @@@@@      @@@@@@     @@@@@     @@@    @@
+ @@    @@    @@   @@    @@   @@      @@      @@   @@    @@@@   @@
+ @@          @@   @@    @@    @@     @@      @@   @@    @@ @@  @@
+  @@@@@@     @@@@@@@    @@    @@     @@      @@@@@@@    @@  @@ @@
+      @@     @@   @@    @@    @@     @@      @@   @@    @@   @@@@
+@@    @@     @@   @@    @@   @@      @@      @@   @@    @@    @@@
+ @@@@@	     @@   @@    @@@@@      @@@@@@    @@   @@    @@     @@
+ 
+*/
 
 var app = angular.module('qdp', []);
+
 app.controller("qdpCtrl", function($scope){
-	$scope.onInputRawData = function() {
-		var temp = $scope.intArrayFromThis($scope.rawData);
-		$scope.sortedData = temp.sort(function(a, b){return a - b});
-		$scope.n = $scope.sortedData.length;
-		$scope.findQuartilesOfUngroupedData();
-		$scope.highestValue = $scope.sortedData[$scope.n-1];
-		$scope.lowestValue = $scope.sortedData[0];
-		if ($scope.numberOfClasses)
-			$scope.buildFrequencyTable();
-	}
-	$scope.findQuartilesOfUngroupedData = function() {
-		$scope.unQ1pos = 1 / 4 * ($scope.n + 1);
-		$scope.unQ2pos = 1 / 2 * ($scope.n + 1);
-		$scope.unQ3pos = 3 / 4 * ($scope.n + 1);
-		if ($scope.isFloat($scope.unQ1pos)) {
-			var floor = Math.floor($scope.unQ1pos);
-			$scope.unQ1 = ($scope.sortedData[floor-1] +
-			               $scope.sortedData[floor]) / 2;
-		} else {
-			var floor = Math.floor($scope.unQ1pos);
-			$scope.unQ1 = $scope.sortedData[floor-1];
-		}
-		if ($scope.isFloat($scope.unQ2pos)) {
-			var floor = Math.floor($scope.unQ2pos);
-			$scope.unQ2 = ($scope.sortedData[floor-1] +
-			               $scope.sortedData[floor]) / 2;
-		} else {
-			var floor = Math.floor($scope.unQ2pos);
-			$scope.unQ2 = $scope.sortedData[floor-1];
-		}
-		if ($scope.isFloat($scope.unQ3pos)) {
-			var floor = Math.floor($scope.unQ3pos);
-			$scope.unQ3 = ($scope.sortedData[floor-1] +
-			               $scope.sortedData[floor]) / 2;
-		} else {
-			var floor = Math.floor($scope.unQ3pos);
-			$scope.unQ3 = $scope.sortedData[floor-1];
-		}
-	}
-	$scope.findDecilesOfUngroupedData = function() {
-		var decilesToFind = $scope.intArrayFromThis(
-			$scope.rawDeciles).sort(
-				function(a, b){return a - b});
-		$scope.solvedUngroupedDeciles = [];
-		for (x in decilesToFind) {
-			$scope.solvedUngroupedDeciles[x] = {
-				k: decilesToFind[x],
-				answer: Math.round(
-					decilesToFind[x] / 10 * ($scope.n + 1))
-			}
-		}
-	}
-	$scope.findPercentilesOfUngroupedData = function() {
-		var percentilesToFind = $scope.intArrayFromThis(
-			$scope.rawPercentiles).sort(
-				function(a, b){return a - b});
-		$scope.solvedUngroupedPercentiles = [];
-		for (x in percentilesToFind) {
-			var t = Math.round(percentilesToFind[x] /
-				               100 * ($scope.n + 1));
-			$scope.solvedUngroupedPercentiles[x] = {
-				k: percentilesToFind[x],
-				term: t,
-				answer: $scope.sortedData[t]
-			}
-		}
-	}
-	$scope.buildFrequencyTable = function() {
-		if ($scope.highestValue && $scope.lowestValue) {
-			$scope.classInterval = Math.round(
-				($scope.highestValue - $scope.lowestValue) /
-					$scope.numberOfClasses);
-			var modifiedCI = $scope.classInterval-1;
-			$scope.frequencyTable = [
-				{data: [$scope.lowestValue,
-				        $scope.lowestValue + modifiedCI]}
-			];
-			for (var i = 1; i < $scope.numberOfClasses; i++) {
-				var h = $scope.frequencyTable[i-1].data[1]+1;
-				$scope.frequencyTable[i] = {
-					data: [h, h+modifiedCI]
-				};
-			}
-			for (x in $scope.frequencyTable) {
-				var row = $scope.frequencyTable[x];
-				var frequency = 0;
-				for (d in $scope.sortedData) {
-					var datum = $scope.sortedData[d];
-					if (datum >= row.data[0] &&
-					    datum <= row.data[1]) {
-					    frequency++;
-					}
-				}
-				row.lb = row.data[0] - 0.5;
-				row.ub = row.data[1] + 0.5;
-				row.frequency = frequency;
-				if (x == 0) {
-					row.cf = row.frequency;
-				} else {
-					row.cf = row.frequency +
-						$scope.frequencyTable[x-1].cf;
-				}
-			}
-		}
-	}
-	$scope.findQuartilesOfGroupedData = function() {
-		var q1term = (1 * $scope.n) / 4;
-		for (x in $scope.frequencyTable) {
-			if (q1term <= $scope.frequencyTable[x].cf) {
-				var row = $scope.frequencyTable[x];
-				var cf = $scope.frequencyTable[x-1].cf;
-				$scope.q1Grouped = row.lb + ((q1term-cf) /
-					row.frequency) * $scope.classInterval;
-				break;
-			}
-		}
-		var q2term = (2 * $scope.n) / 4;
-		for (x in $scope.frequencyTable) {
-			if (q2term <= $scope.frequencyTable[x].cf) {
-				var row = $scope.frequencyTable[x];
-				var cf = $scope.frequencyTable[x-1].cf;
-				$scope.q2Grouped = row.lb + ((q2term-cf) /
-					row.frequency) * $scope.classInterval;
-				break;
-			}
-		}
-		var q3term = (3 * $scope.n) / 4;
-		for (x in $scope.frequencyTable) {
-			if (q3term <= $scope.frequencyTable[x].cf) {
-				var row = $scope.frequencyTable[x];
-				var cf = $scope.frequencyTable[x-1].cf;
-				$scope.q3Grouped = row.lb + ((q3term-cf) /
-					row.frequency) * $scope.classInterval;
-				break;
-			}
-		}
-	}
-	$scope.findDecilesOfGroupedData = function() {
-		if ($scope.rawDeciles) {
-			var decilesToFind = $scope.intArrayFromThis(
-				$scope.rawDeciles).sort(
-					function(a, b){return b - a});
-			$scope.solvedGroupedDeciles = [];
-			for (i in decilesToFind) {
-				var term = (decilesToFind[i] * $scope.n) / 10;
-				for (x in $scope.frequencyTable) {
-					if (term <= $scope.frequencyTable[x].cf) {
-						var row = $scope.frequencyTable[x];
-						var cf = $scope.frequencyTable[x-1].cf;
-						$scope.solvedGroupedDeciles[i] = {
-							k: decilesToFind[i],
-							answer: row.lb + ((term-cf) /
-								row.frequency) * $scope.classInterval
-						}
-					break;
-					}
-				}
-			}
-		}
-	}
-	$scope.findPercentilesOfGroupedData = function() {
-		if ($scope.rawPercentiles) {
-			var percentilesToFind = $scope.intArrayFromThis(
-				$scope.rawPercentiles).sort(
-					function(a, b){return b - a});
-			$scope.solvedGroupedPercentiles = [];
-			for (i in percentilesToFind) {
-				var term = (percentilesToFind[i] * $scope.n) / 100;
-				for (x in $scope.frequencyTable) {
-					if (term <= $scope.frequencyTable[x].cf) {
-						var row = $scope.frequencyTable[x];
-						var cf = $scope.frequencyTable[x-1].cf;
-						$scope.solvedGroupedPercentiles[i] = {
-							k: percentilesToFind[i],
-							answer: row.lb + ((term-cf) / row.frequency) * $scope.classInterval
-						}
-					break;
-					}
-				}
-			}
-		}
-	}
-	$scope.isFloat = function(num) {
-		var pattern = /\./;
-		return pattern.test(num.toString());
-	}
-	$scope.intArrayFromThis = function(string) {
-		var temp = string.split(", ");
-		for (x in temp) {
-			temp[x] = Number(temp[x]);
-		}
-		return temp;
-	}
+  
+  // This is called if something has changed in
+  // the data input
+  $scope.onInputRawData = function() {
+    var temp = $scope.intArrayFromThis($scope.rawData);
+    $scope.sortedData = temp.sort(function(a, b){return a - b});
+    $scope.n = $scope.sortedData.length;
+    $scope.highestValue = $scope.sortedData[$scope.n-1];
+    $scope.lowestValue = $scope.sortedData[0];
+    if ($scope.numberOfClasses) {
+      $scope.buildFrequencyTable();
+    }
+    $scope.findUngroupedMedian();
+    $scope.findQuartilesOfUngroupedData();
+    $scope.findDecilesOfUngroupedData();
+    $scope.findPercentilesOfUngroupedData();
+  }
+
+  // Getting median of ungrouped data
+  $scope.findUngroupedMedian = function() {
+    console.log('hey');
+    var median = ($scope.n + 1) / 2;
+    if ($scope.isFloat(median)) {
+      var floor = Math.floor(median);
+      $scope.ungroupedMedian = ($scope.sortedData[floor-1] + 
+        $scope.sortedData[floor]) / 2;
+    } else {
+      var floor = Math.floor($scope.unQ1pos);
+      $scope.ungroupedMedian = $scope.sortedData[floor-1];
+    }
+  }
+  
+  // This finds the Quartiles of Ungrouped Data
+  $scope.findQuartilesOfUngroupedData = function() {
+    $scope.unQ1pos = 1 / 4 * ($scope.n + 1);
+    $scope.unQ2pos = 1 / 2 * ($scope.n + 1);
+    $scope.unQ3pos = 3 / 4 * ($scope.n + 1);
+    if ($scope.isFloat($scope.unQ1pos)) {
+      var floor = Math.floor($scope.unQ1pos);
+      $scope.unQ1 = ($scope.sortedData[floor-1] + 
+	    $scope.sortedData[floor]) / 2;
+    } else {
+      var floor = Math.floor($scope.unQ1pos);
+      $scope.unQ1 = $scope.sortedData[floor-1];
+    }
+    if ($scope.isFloat($scope.unQ2pos)) {
+      var floor = Math.floor($scope.unQ2pos);
+      $scope.unQ2 = ($scope.sortedData[floor-1] +
+	    $scope.sortedData[floor]) / 2;
+    } else {
+      var floor = Math.floor($scope.unQ2pos);
+      $scope.unQ2 = $scope.sortedData[floor-1];
+    }
+    if ($scope.isFloat($scope.unQ3pos)) {
+      var floor = Math.floor($scope.unQ3pos);
+      $scope.unQ3 = ($scope.sortedData[floor-1] +
+	    $scope.sortedData[floor]) / 2;
+    } else {
+      var floor = Math.floor($scope.unQ3pos);
+      $scope.unQ3 = $scope.sortedData[floor-1];
+    }
+  }
+  
+  // This finds the Deciles of the Ungrouped Data
+  $scope.findDecilesOfUngroupedData = function() {
+    var decilesToFind = $scope.intArrayFromThis($scope.rawDeciles)
+	  .sort(function(a, b){return a - b});
+    $scope.solvedUngroupedDeciles = [];
+    for (x in decilesToFind) {
+      $scope.solvedUngroupedDeciles[x] = {
+        k: decilesToFind[x],
+        answer: Math.round(decilesToFind[x] / 10 * ($scope.n + 1))
+      }
+    }
+  }
+  
+  // This finds the Percentiles of the Ungrouped Data
+  $scope.findPercentilesOfUngroupedData = function() {
+    var percentilesToFind = $scope.intArrayFromThis($scope.rawPercentiles)
+	  .sort(function(a, b){return a - b});
+    $scope.solvedUngroupedPercentiles = [];
+    for (x in percentilesToFind) {
+      var t = Math.round(percentilesToFind[x] / 100 * ($scope.n + 1));
+      $scope.solvedUngroupedPercentiles[x] = {
+        k: percentilesToFind[x],
+        term: t,
+        answer: $scope.sortedData[t-1]
+      }
+    }
+  }
+  
+  // This builds the Frequency Table which is vital
+  // to the rest of the application
+  $scope.buildFrequencyTable = function() {
+    // Checks if there's highest and lowest
+    // values already
+    if ($scope.highestValue && $scope.lowestValue) {
+      // Gets the class interval
+      $scope.classInterval = Math.round(($scope.highestValue -
+	    $scope.lowestValue) / $scope.numberOfClasses);
+      // Modifies the class interval to make it
+      // compatible for JS arithmetic
+      var modifiedCI = $scope.classInterval-1;
+      // Creates initial data
+      $scope.frequencyTable = [
+        {
+          data: [$scope.lowestValue, $scope.lowestValue + modifiedCI]
+        }
+      ];
+      // Further creates the data
+      for (var i = 1; i < $scope.numberOfClasses; i++) {
+        var h = $scope.frequencyTable[i-1].data[1]+1;
+        $scope.frequencyTable[i] = {
+          data: [h, h+modifiedCI]
+        };
+      }
+      // Gets the lower and upper boundaries as well as
+      // the frequency and less than culmulative frequency
+      for (x in $scope.frequencyTable) {
+        var row = $scope.frequencyTable[x];
+        var frequency = 0;
+        for (d in $scope.sortedData) {
+          var datum = $scope.sortedData[d];
+          if (datum >= row.data[0] && datum <= row.data[1]) {
+            frequency++;
+          }
+        }
+        row.lb = row.data[0] - 0.5;
+        row.ub = row.data[1] + 0.5;
+        row.frequency = frequency;
+        row.classMark = (row.data[0] + row.data[1]) / 2;
+        row.relativeFrequency = frequency / $scope.n;
+        if (x == 0)
+          row.cf = row.frequency;
+        else {
+          row.cf = row.frequency + $scope.frequencyTable[x-1].cf;
+        }
+      }
+      // Special loop for getting the greater than
+      // culmulative frequency
+      var rowCount = $scope.frequencyTable.length-1;
+      for (rowCount; rowCount >= 0; rowCount--) {
+        if (rowCount+1 ==  $scope.frequencyTable.length)
+          $scope.frequencyTable[rowCount].gcf = $scope.frequencyTable[
+	        rowCount].frequency;
+        else {
+          $scope.frequencyTable[rowCount].gcf = $scope.frequencyTable[
+		    rowCount].frequency + $scope.frequencyTable[rowCount+1].gcf;
+        }
+      }
+      // Getting the Xo
+      var indexOfXo;
+      if ($scope.numberOfClasses % 2 == 0)
+        indexOfXo = Math.floor($scope.numberOfClasses / 2);
+      else
+        indexOfXo = Math.floor($scope.numberOfClasses / 2);
+      $scope.xo = ($scope.frequencyTable[indexOfXo].lb +
+        $scope.frequencyTable[indexOfXo].ub) / 2;
+      // Getting the Xc, fXc and fXm
+      for (x in $scope.frequencyTable) {
+        var row = $scope.frequencyTable[x];
+        row.fxm = row.frequency * row.classMark
+        row.xc = (row.classMark - $scope.xo) / $scope.classInterval;
+        row.fxc = row.frequency * row.xc;
+      }
+      // Getting mean of ungrouped data
+      var sumFXm = 0;
+      for (x in $scope.frequencyTable)
+        sumFXm += $scope.frequencyTable[x].fxm;
+      $scope.ungroupedMean = sumFXm / $scope.n;
+      // Getting mean of grouped data
+      var sumFXc = 0;
+      for (x in $scope.frequencyTable)
+        sumFXc += $scope.frequencyTable[x].fxc;
+      $scope.groupedMean = $scope.xo + (sumFXc / $scope.n) *
+        $scope.classInterval;
+    }
+  }
+  
+  // Finds the Quatiles of Grouped Data
+  $scope.findQuartilesOfGroupedData = function() {
+    var q1term = (1 * $scope.n) / 4;
+    for (x in $scope.frequencyTable) {
+      if (q1term <= $scope.frequencyTable[x].cf) {
+        var row = $scope.frequencyTable[x];
+        var cf = $scope.frequencyTable[x-1].cf;
+        $scope.q1Grouped = row.lb + ((q1term-cf) / row.frequency) *
+		  $scope.classInterval;
+        break;
+      }
+    }
+    var q2term = (2 * $scope.n) / 4;
+    for (x in $scope.frequencyTable) {
+      if (q2term <= $scope.frequencyTable[x].cf) {
+        var row = $scope.frequencyTable[x];
+        var cf = $scope.frequencyTable[x-1].cf;
+        $scope.q2Grouped = row.lb + ((q2term-cf) / row.frequency) *
+		  $scope.classInterval;
+        break;
+      }
+    }
+    var q3term = (3 * $scope.n) / 4;
+    for (x in $scope.frequencyTable) {
+      if (q3term <= $scope.frequencyTable[x].cf) {
+        var row = $scope.frequencyTable[x];
+        var cf = $scope.frequencyTable[x-1].cf;
+        $scope.q3Grouped = row.lb + ((q3term-cf) / row.frequency) *
+		  $scope.classInterval;
+        break;
+      }
+    }
+  }
+  
+  // Finds the Deciles of the Grouped Data
+  $scope.findDecilesOfGroupedData = function() {
+    if ($scope.rawDeciles) {
+      var decilesToFind = $scope.intArrayFromThis($scope.rawDeciles)
+	    .sort(function(a, b){return b - a});
+      $scope.solvedGroupedDeciles = [];
+      for (i in decilesToFind) {
+        var term = (decilesToFind[i] * $scope.n) / 10;
+        for (x in $scope.frequencyTable) {
+          if (term <= $scope.frequencyTable[x].cf) {
+            var row = $scope.frequencyTable[x];
+            var cf = $scope.frequencyTable[x-1].cf;
+            $scope.solvedGroupedDeciles[i] = {
+              k: decilesToFind[i],
+              answer: row.lb + ((term-cf) / row.frequency) *
+			    $scope.classInterval
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+  
+  // Finds the Percentiles of Grouped Data
+  $scope.findPercentilesOfGroupedData = function() {
+    if ($scope.rawPercentiles) {
+      var percentilesToFind = $scope.intArrayFromThis(
+        $scope.rawPercentiles).sort(function(a, b){return b - a});
+      $scope.solvedGroupedPercentiles = [];
+      for (i in percentilesToFind) {
+        var term = (percentilesToFind[i] * $scope.n) / 100;
+        for (x in $scope.frequencyTable) {
+          if (term <= $scope.frequencyTable[x].cf) {
+            var row = $scope.frequencyTable[x];
+            var cf = $scope.frequencyTable[x-1].cf;
+            $scope.solvedGroupedPercentiles[i] = {
+              k: percentilesToFind[i],
+              answer: row.lb + ((term-cf) / row.frequency) *
+			    $scope.classInterval
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+  
+  // Helper function for determining if a number is a float
+  $scope.isFloat = function(num) {
+    var pattern = /\./;
+    return pattern.test(num.toString());
+  }
+  
+  // Helper function for converting a string of data
+  // to an array of data
+  $scope.intArrayFromThis = function(string) {
+    var temp = string.split(",");
+    for (x in temp) {
+      temp[x] = Number(temp[x]);
+    }
+    return temp;
+  }
 });
 </script>
 	
 </body>
 </html>
-
