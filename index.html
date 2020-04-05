@@ -1,1 +1,220 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/icon.png><title>DSadian</title><link href=/css/app.55167168.css rel=preload as=style><link href=/js/app.6509d7ad.js rel=preload as=script><link href=/js/chunk-vendors.c12f1d07.js rel=preload as=script><link href=/css/app.55167168.css rel=stylesheet></head><body><noscript><strong>I'm sorry but I won't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/js/chunk-vendors.c12f1d07.js></script><script src=/js/app.6509d7ad.js></script></body></html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dein Sadian</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://denniel-sadian.github.io/w3.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Nunito);
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            padding: 0px;
+            margin: 0px;
+            overflow-x: hidden;
+            background: linear-gradient(to bottom right, #2196F3, violet);
+        }
+
+        footer,
+        div * {
+            font-family: 'Nunito';
+        }
+
+        header {
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+                "texts photo"
+                "three three";
+            background: url('https://denniel-sadian.github.io/img/header-bg.jpg') no-repeat fixed;
+            background-position: bottom;
+            width: 100%;
+            background-size: cover;
+            z-index: 0;
+            overflow: hidden !important;
+        }
+
+        .photo {
+            grid-area: photo;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            overflow: hidden !important;
+        }
+
+        .photo img {
+            height: 100%;
+            width: auto;
+            position: relative;
+        }
+
+        .texts {
+            grid-area: texts;
+            align-items: center;
+            display: flex;
+            justify-content: flex-end;
+            color: white;
+        }
+
+        .texts>div {
+            width: 80%;
+        }
+
+        .texts>div h1,
+        .texts>div p,
+        .texts>div a {
+            font-family: 'Nunito';
+            text-transform: capitalize;
+        }
+
+        .texts>div p:first-child {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .texts>div h1 {
+            font-size: 50px;
+            line-height: 1em;
+            font-weight: 800;
+        }
+
+        .three {
+            grid-area: three;
+            background: white;
+            padding: 16px 0px;
+            display: flex;
+            font-size: 16px;
+        }
+
+        .three>div {
+            display: grid;
+            align-items: center;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .three>div>div {
+            border-right: 1px solid lightgray;
+            text-align: center;
+        }
+
+        .three>div>div:last-child {
+            border-right: none;
+        }
+
+        .three i {
+            color: gray;
+            font-size: 30px;
+        }
+
+        @media screen and (max-width: 450px) {
+            /* Small phones */
+
+            .texts h1 {
+                font-size: 30px !important;
+            }
+        }
+
+        @media screen and (max-width: 730px) {
+            header {
+                display: flex;
+                flex-direction: column;
+                justify-content: center !important;
+                align-items: center !important;
+                background: url('https://denniel-sadian.github.io/img/small-header-bg.jpg') no-repeat fixed;
+                background-position: bottom;
+                background-size: cover;
+            }
+
+            .texts {
+                justify-content: center;
+                text-align: center;
+                order: 2;
+            }
+
+            .photo {
+                height: unset;
+            }
+
+            .photo img {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+                object-position: top;
+                border-radius: 100%;
+                border: 3px solid white;
+                background: #ffeb3b6b;
+            }
+
+            .three {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            .texts>div {
+                width: 90%;
+            }
+        }
+
+        @media screen and (min-height: 850px) {
+            header {
+                grid-template-rows: 640px 1fr;
+            }
+
+            .three {
+                font-size: 20px;
+            }
+
+            .three i {
+                font-size: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="texts w3-animate-left">
+            <div>
+                <p class="w3-text-yellow">My name is Denniel Luis Sadian</p>
+                <h1>I'm a full stack developer from Marinduque.</h1>
+                <p>I love working with web technologies. Web development is my passion.</p>
+                <a href="#" class="w3-button w3-yellow w3-round">See My Works</a>
+            </div>
+        </div>
+        <div class="photo w3-animate-bottom">
+            <img src="me.png" alt="Me">
+        </div>
+        <div class="three">
+            <div class="w3-content">
+                <div class="w3-padding">
+                    <i class="far fa-object-group"></i>
+                    <p>I design minimalist web applications while maintaining good user experience.</p>
+                </div>
+                <div class="w3-padding">
+                    <i class="far fa-keyboard"></i>
+                    <p>I am knowledgable of different web technologies for both front and back.</p>
+                </div>
+                <div class="w3-padding">
+                    <i class="far fa-comments"></i>
+                    <p>I can communicate nicely and effectively using English and my mother tongue.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+</body>
+
+</html>
