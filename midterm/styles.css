@@ -1,0 +1,561 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 70%;
+}
+
+header {
+  display: flex;
+  position: relative;
+  min-height: 75vh;
+  background-color: #ce4049;
+  background-image: url(../assets/img/bg-pattern-intro.svg);
+  background-position: center;
+  background-size: 195vh;
+  background-repeat: repeat;
+  border-bottom-left-radius: 100px;
+}
+
+ol,
+li {
+  list-style: none;
+}
+
+header .extra-gradient {
+  position: absolute;
+  width: 100%;
+  min-height: 75vh;
+  border-bottom-left-radius: 100px;
+  background: hsl(353, 100%, 62%);
+  background: linear-gradient(180deg, hsl(353, 100%, 62%) 0%, rgba(254, 76, 88, 0.868785) 37%, rgba(254, 76, 88, 0.753939) 80%);
+}
+
+header nav {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  max-width: 100%;
+  min-width: 100%;
+  margin-top: 2em;
+  z-index: 3;
+}
+
+header nav .blogr-logo {
+  width: 70%;
+  padding: 2.5em;
+}
+
+header nav .blogr-logo img {
+  width: 7em;
+}
+
+header nav #nav-tgl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+
+header nav #nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  justify-content: flex-start;
+  position: fixed;
+  top: 15%;
+  width: 80%;
+  padding: 1.5em; 
+  background-color: #fff;
+  box-shadow: 0 0 1.4em rgba(0, 0, 0, 0.342);
+  border-radius: 6px;
+}
+
+header nav #nav ul {
+  border-radius: 6px;
+}
+
+header nav #nav .links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+header nav #nav .links li {
+  width: 100%;
+}
+
+header nav #nav .links li a {
+  font-family: "Overpass", sans-serif;
+  font-size: 1rem;
+  color: #000;
+  text-align: center;
+  display: block;
+  padding: 1em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header nav #nav .links li a img {
+  padding-left: 0.5em;
+  transition: 0.5s ease;
+}
+
+header nav #nav .links li ul {
+  display: none;
+  width: 100%;
+  padding: 0;
+  background-color: #efeff1;
+}
+
+header nav #nav .links li ul li {
+  width: auto;
+}
+
+header nav #nav .auth {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  border-top: 1px solid rgb(231, 231, 231);
+}
+
+header nav #nav .auth a {
+  font-family: "Overpass", sans-serif;
+  font-size: 1rem;
+  color: #000;
+  text-align: center;
+  display: block;
+  width: 50%;
+  padding: 1em;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header nav #nav .auth .login {
+  background-color: transparent;
+}
+
+header nav #nav .auth .sign-up {
+  color: #fff;
+  background-color: #ff4958;
+}
+
+header .header-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 90vh;
+  max-height: 90vh;
+  position: absolute;
+}
+
+header .header-content h1 {
+  font-family: "Overpass", sans-serif;
+  font-size: 1.8rem;
+  color: #fff;
+  text-align: center;
+  width: 80%;
+}
+
+header .header-content p {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.781);
+  text-align: center;
+  width: 80%;
+  line-height: 1.5;
+}
+
+header .header-content .starting-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  margin-top: 1em;
+  width: 80%;
+}
+
+header .header-content .starting-btn a {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 0.8rem;
+  color: #000;
+  text-align: center;
+  padding: 1em;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  font-weight: bold;
+  width: 7em;
+}
+
+header .header-content .starting-btn .colored {
+  background-color: #fff;
+  color: #fe4c58;
+}
+
+header .header-content .starting-btn .not-colored {
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+article {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+article .wrapping {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6em;
+  min-width: 400px;
+  margin-bottom: 5em;
+  position: relative;
+}
+
+article .wrapping h2 {
+  font-family: "Overpass", sans-serif;
+  font-size: 1.7rem;
+  color: #1b1818;
+  text-align: center;
+  width: 70%;
+  margin: auto;
+  font-weight: 900;
+}
+
+article .wrapping .camera-img {
+  display: block;
+  margin-top: 4em;
+  margin-bottom: 4em;
+  z-index: 2;
+}
+
+article .wrapping .camera-img img {
+  width: 100%;
+}
+
+article .wrapping .text {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1.1rem;
+  color: rgba(49, 43, 43, 0.747);
+  text-align: center;
+  width: 80%;
+  min-width: 400px;
+  margin: auto;
+}
+
+article .wrapping .text h2 {
+  margin-top: 2em;
+}
+
+article .wrapping .text p {
+  line-height: 2;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+article .wrapping .camera-img.img_text {
+  position: absolute;
+  top: -30vh;
+  margin-bottom: 5vh;
+}
+
+article .wrapping .camera-img.img_text img {
+  width: 380px;
+}
+
+article .wrapping .middle-bg {
+  min-height: 80vh;
+  width: 100%;
+  background-color: #1c1d29;
+  background-color: linear-gradient(90deg, #1c1d29 0%, #34374f 50%, #3a3d5c 100%);
+  background-image: url(../assets/img/bg-pattern-circles.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: -25vh -42vh;
+  border-bottom-left-radius: 100px;
+  border-top-right-radius: 100px;
+}
+
+article .wrapping .middle-bg h2,
+article .wrapping .middle-bg p {
+  width: 80%;
+  margin: auto;
+}
+
+article .wrapping .middle-bg h2 {
+  font-family: "Overpass", sans-serif;
+  font-size: 2.1rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 30vh;
+  margin-bottom: 1em;
+}
+
+article .wrapping .middle-bg p {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1rem;
+  color: #ccb7b7;
+  text-align: center;
+}
+
+article .wrapping.wrapper_filled {
+  margin-top: 60%;
+}
+
+footer {
+  background-color: #24242c;
+  padding: 1em;
+  border-top-right-radius: 140px;
+  padding-bottom: 50px;
+}
+
+footer h2 {
+  font-family: "Overpass", sans-serif;
+  font-size: 2.8rem;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+}
+
+footer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+}
+
+footer > div h3 {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  padding: 1em;
+}
+
+footer > div a {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 0.9rem;
+  color: rgba(216, 199, 199, 0.877);
+  text-align: center;
+  text-decoration: none;
+}
+
+footer .attribution {
+  font-family: "Overpass", sans-serif;
+  font-size: 0.7rem;
+  color: #fff;
+  text-align: center;
+}
+
+footer .attribution h3 {
+  font-family: "Overpass", sans-serif;
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+  padding: 1em;
+}
+
+footer .attribution a {
+  line-height: 2;
+  color: #2f9389;
+}
+
+@media (min-width: 1000px) {
+  header nav #nav .auth {
+    border-top: none;
+  }
+  header nav {
+    margin-top: 5em;
+  }
+  header nav .blogr-logo {
+    width: 6%;
+    padding-right: 4em;
+  }
+  header nav #nav-tgl {
+    display: none;
+  }
+  header nav #nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: initial;
+    min-height: auto;
+    width: 70%;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  header nav #nav .links {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
+  }
+  header nav #nav .links li {
+    width: auto;
+  }
+  header nav #nav .links li ul {
+    display: none;
+    position: absolute;
+    width: 13%;
+    background-color: #fff;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.342);
+    border-radius: 10px;
+  }
+  header nav #nav .links li ul a {
+    text-align: left;
+    color: #000;
+  }
+  header nav #nav .links li a {
+    color: #fff;
+  }
+  header nav #nav .links li img {
+    padding-left: 0.5em;
+  }
+  header nav #nav .auth {
+    flex-direction: row;
+    width: 50%;
+    padding-right: 6em;
+  }
+  header nav #nav .auth .login {
+    color: #fff;
+    background-color: transparent;
+  }
+  header nav #nav .auth .sign-up {
+    background-color: #fff;
+    color: #ff4958;
+  }
+  header nav #nav .auth .sign-up:hover {
+    color: #fff;
+    background-color: #fd7b87;
+  }
+  header .header-content h1 {
+    font-size: 3rem;
+  }
+  header .header-content .starting-btn .colored:hover {
+    color: #fff;
+    background-color: #fd7b87;
+  }
+  header .header-content .starting-btn .not-colored:hover {
+    background-color: #fff;
+    color: #ff4958;
+  }
+  article {
+    overflow: hidden;
+  }
+  article .wrapping {
+    position: relative;
+    flex-direction: row-reverse;
+  }
+  article .wrapping > h2 {
+    top: 0;
+    position: absolute;
+  }
+  article .wrapping .camera-img {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    position: relative;
+  }
+  article .wrapping .camera-img img {
+    width: 800px;
+    position: absolute;
+    right: -7rem;
+  }
+  article .wrapping .text {
+    width: 50%;
+    padding: 6em;
+    text-align: left;
+    margin-top: 3em;
+  }
+  article .wrapping .camera-img.img_text {
+    position: absolute;
+    top: -15%;
+    left: 10%;
+    width: 40%;
+  }
+  article .wrapping .camera-img.img_text img {
+    display: block;
+    position: initial;
+    width: 90%;
+    margin: 0;
+  }
+  article .wrapping .middle-bg {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-end;
+    min-height: 30vh;
+    background-position: -500px -900px;
+  }
+  article .wrapping .middle-bg h2,
+  article .wrapping .middle-bg p {
+    width: 50%;
+    margin: 0;
+    text-align: left;
+  }
+  article .wrapping .middle-bg h2 {
+    margin-top: 4vh;
+  }
+  article .wrapping .middle-bg p {
+    font-size: 1.1rem;
+    margin-bottom: 4vh;
+  }
+  article .wrapping.wrapper_filled {
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+  article .wrapping.last-content {
+      flex-flow: row;
+  }
+  article .wrapping.last-content .camera-img img {
+    left: -36%;
+  }
+  footer {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+  }
+  footer > div a {
+    text-align: left;
+    width: 100%;
+  }
+  footer h2 {
+    width: 30%;
+  }
+  footer > div h3 {
+    width: 100%;
+    text-align: left;
+  }
+  footer > div {
+    width: 20%;
+  }
+}
