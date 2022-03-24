@@ -10,7 +10,7 @@ header {
   position: relative;
   min-height: 75vh;
   background-color: #ce4049;
-  background-image: url(../assets/img/bg-pattern-intro.svg);
+  background-image: url(/midterm/img/bg-pattern-intro.svg);
   background-position: center;
   background-size: 195vh;
   background-repeat: repeat;
@@ -291,7 +291,7 @@ article .wrapping .middle-bg {
   width: 100%;
   background-color: #1c1d29;
   background-color: linear-gradient(90deg, #1c1d29 0%, #34374f 50%, #3a3d5c 100%);
-  background-image: url(../assets/img/bg-pattern-circles.svg);
+  background-image: url(/midterm/img/bg-pattern-circles.svg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: -25vh -42vh;
