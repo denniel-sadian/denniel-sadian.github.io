@@ -4,11 +4,11 @@ function changeIcons() {
   arrows = document.querySelectorAll('.arrow');
   if (document.body.clientWidth < 1000) {
     for (let arrow of arrows) {
-      arrow.src = '/img/icon-arrow-dark.svg';
+      arrow.src = '/midterm/img/icon-arrow-dark.svg';
     }
   } else {
     for (let arrow of arrows) {
-      arrow.src = '/img/icon-arrow-light.svg';
+      arrow.src = '/midterm/img/icon-arrow-light.svg';
     }
   }
 }
@@ -24,10 +24,10 @@ window.onload = function () {
     navToggle = !navToggle;
     if (navToggle) {
       navBar.style.display = 'flex';
-      navBarIcon.src = '/img/icon-close.svg';
+      navBarIcon.src = '/midterm/img/icon-close.svg';
     } else {
       navBar.style.display = 'none';
-      navBarIcon.src = '/img/icon-hamburger.svg';
+      navBarIcon.src = '/midterm/img/icon-hamburger.svg';
     }
   });
 
