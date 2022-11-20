@@ -1,0 +1,143 @@
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
+#nav {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+#nav .brand {
+  padding: 0px;
+}
+
+#nav > div {
+  margin: 20px auto 0 auto;
+  width: 100%;
+  max-width: 80%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+#nav > div > div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#nav a {
+  color: white;
+  text-decoration: none;
+  font-family: "Open Sans", sans-serif;
+  padding-left: 30px;
+  letter-spacing: 5px;
+  transition: 0.3s;
+  font-weight: bolder;
+}
+
+#nav a:hover {
+  color: gray;
+}
+
+#nav img {
+  width: 200px;
+  height: auto;
+}
+
+section.third {
+  background-image: url("../images/footbg.webp");
+  background-color: rgba(0, 0, 0, 0.671);
+  background-blend-mode: darken;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+section.third > div {
+  height: 400px;
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  padding-bottom: 80px;
+  color: white;
+}
+
+section.third > div > span {
+  font-family: "Playfair Display", serif !important;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.email-catcher {
+  display: flex;
+  height: 50px;
+  font-family: "Open Sans", sans-serif;
+  margin-top: 20px;
+}
+
+.email-catcher * {
+  font-size: 20px;
+}
+
+.email-catcher input {
+  width: 350px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2.5px solid white;
+  padding-left: 10px;
+  color: white;
+}
+
+.email-catcher button {
+  border: none;
+  letter-spacing: 2px;
+  margin-left: 10px;
+  padding: 0 10px;
+  background-color: #ff59c7;
+  color: white;
+}
+
+footer {
+  font-family: "Open Sans", sans-serif;
+  letter-spacing: 1px;
+  background-color: #333333;
+  color: white;
+  padding: 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+footer p {
+  max-width: 50%;
+}
+
+@media only screen and (max-width: 900px) {
+  #nav > div {
+    margin: 20px 0px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #nav img {
+    width: 100px;
+    padding-left: 20px;
+  }
+
+  #nav a {
+    letter-spacing: unset;
+    padding-left: unset;
+    padding-right: 20px;
+  }
+
+  .email-catcher input {
+    width: 80%;
+  }
+}

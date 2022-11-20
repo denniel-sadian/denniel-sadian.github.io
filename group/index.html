@@ -1,0 +1,216 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,500;0,600;0,700;0,1000;1,500;1,600;1,800;1,900;1,1000&family=Open+Sans:wght@300&family=Playfair+Display:wght@500;600;700;800;900&family=Roboto:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="scripts/jquery-3.6.1.min.js"></script>
+    <title>BLACKPINK</title>
+    <style>
+      .main {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 50% 50%;
+      }
+
+      .left {
+        background-color: #ad3f60;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 50px;
+      }
+
+      #logo {
+        width: 200px;
+        height: auto;
+      }
+
+      .left nav {
+        display: grid;
+        grid-template-columns: auto 1fr;
+      }
+
+      .left nav > div {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        font-family: "Open Sans", sans-serif;
+      }
+
+      .left nav > div a {
+        padding-left: 50px;
+        font-size: 18px;
+        letter-spacing: 5px;
+        color: white;
+      }
+
+      .left .initials {
+        width: 130px;
+        height: 130px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+      }
+
+      .left .initials > div {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        font-family: "Roboto", sans-serif;
+        font-size: 40px;
+        color: white;
+      }
+
+      .right {
+        background-color: #000;
+        display: grid;
+        grid-template-columns: 85% 15%;
+      }
+
+      .right .bigger {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background-image: url("images/members/them1.jpg");
+        background-color: rgba(0, 0, 0, 0.48);
+        background-blend-mode: darken;
+        background-size: cover;
+        background-position: center;
+        transition: 1s;
+      }
+
+      .right .bigger .play-btn {
+        width: 80;
+        height: 80px;
+        background-color: #ff59c7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        border-radius: 100%;
+        margin-left: -40px;
+        transition: 0.3s;
+        z-index: 10;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .right .bigger .play-btn:hover {
+        box-shadow: 0 0px 20px 0 #ff59c7, 0 0px 20px 0 #ff59c7;
+        font-size: 30px;
+      }
+
+      .right .extra {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+      }
+
+      .right .extra > div {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Open Sans", sans-serif;
+        letter-spacing: 3px;
+      }
+
+      .right .extra .first {
+        background-color: #b67f90;
+        color: #561f30;
+      }
+
+      .right .extra .second {
+        background-color: #561f30;
+        color: #b67f90;
+      }
+
+      @media only screen and (max-width: 900px) {
+        .main {
+          grid-template-columns: 100%;
+        }
+
+        .left {
+          display: none;
+        }
+
+        .right .bigger {
+          align-items: center;
+        }
+
+        .right .bigger .play-btn {
+          margin-left: unset;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="left">
+        <nav>
+          <img id="logo" src="images/logo1.png" alt="" />
+          <div>
+            <a href="members.html">MEMBERS</a>
+            <a href="about.html">ABOUT</a>
+          </div>
+        </nav>
+        <div class="initials">
+          <div>P</div>
+          <div>K</div>
+          <div>O</div>
+          <div>P</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="bigger" id="bigger-id">
+          <a href="members.html" class="play-btn"><i class="fa fa-play"></i></a>
+        </div>
+        <div class="extra">
+          <div class="first">BLACKPINK</div>
+          <div class="second">BLACKPINK</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="third">
+      <div>
+        <span>Subscribe</span>
+        <div class="email-catcher">
+          <input type="email" placeholder="Enter a valid email address" />
+          <button>SUBMIT</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        Made by Anna Marie Tenorio, Jastine Siena, Earl Jerald Cuba, Jet Francis
+        Podaca, Jose Angelo Labrador, Angelica Mae Escala, and Denniel Luis
+        Sadian.
+      </p>
+      <p>BSIT-3E <i class="fa fa-heart" style="color: red"></i></p>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script>
+      $(function () {
+        setInterval(changePic, 2000);
+      });
+    </script>
+  </body>
+</html>
